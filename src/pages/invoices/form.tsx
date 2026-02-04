@@ -24,9 +24,9 @@ type Invoice = {
   issue_date: string;
   due_date: string;
   total_amount: number;
-  tax: number;
+  amount: number;
   final_amount: number;
-  status: 'Pending' | 'Paid' | 'Overdue';
+  status: 'Pending' | 'Paid' ;
 };
 
 interface InvoiceModalProps {
@@ -47,8 +47,8 @@ export const InvoiceModal = ({
     customer_id: "",
     issue_date: undefined as Date | undefined,
     due_date: undefined as Date | undefined,
-    tax: 0,
-    status: "Pending" as "Pending" | "Paid" | "Overdue",
+    amount: 0,
+    status: "Pending" as "Pending" | "Paid" ,
     // Note: total_amount and final_amount will be calculated automatically
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +57,7 @@ export const InvoiceModal = ({
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === "tax" ? (value === "" ? 0 : parseFloat(value)) : value
+      [name]: name === "amount" ? (value === "" ? 0 : parseFloat(value)) : value
     }));
   };
 
@@ -75,7 +75,7 @@ export const InvoiceModal = ({
         customer_id: formData.customer_id,
         issue_date: formData.issue_date ? format(formData.issue_date, "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd"),
         due_date: formData.due_date ? format(formData.due_date, "yyyy-MM-dd") : "",
-        tax: formData.tax,
+        amount: formData.amount,
         status: formData.status,
         // total_amount and final_amount will be calculated by backend
       };
@@ -102,7 +102,7 @@ export const InvoiceModal = ({
         customer_id: "",
         issue_date: undefined,
         due_date: undefined,
-        tax: 0,
+        amount: 0,
         status: "Pending",
       });
       
@@ -206,11 +206,11 @@ export const InvoiceModal = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Tax (TZS)</label>
+            <label className="block text-sm font-medium mb-1">Amount ($)</label>
             <Input
               type="number"
-              name="tax"
-              value={formData.tax}
+              name="amount"
+              value={formData.amount}
               onChange={handleChange}
               min="0"
               step="0.01"
@@ -229,7 +229,6 @@ export const InvoiceModal = ({
               <SelectContent>
                 <SelectItem value="Pending">Pending</SelectItem>
                 <SelectItem value="Paid">Paid</SelectItem>
-                <SelectItem value="Overdue">Overdue</SelectItem>
               </SelectContent>
             </Select>
           </div>
