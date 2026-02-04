@@ -120,7 +120,7 @@ export const VehicleForm = ({ open, onOpenChange, onSubmit, initialData }: Vehic
                             </Select>
                         </div>
                         <div>
-                            <Label className="block text-sm font-medium mb-1">Price / Day (TZS)</Label>
+                            <Label className="block text-sm font-medium mb-1">Price / Day ($)</Label>
                             <Input
                                 type="number"
                                 value={formData.price_per_day}
